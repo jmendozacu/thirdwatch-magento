@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <thirdwatch translate="label" module="mitra">
+            <label>Thirdwatch</label>
+            <sort_order>100</sort_order>
+        </thirdwatch>
+    </tabs>
+    <sections>
+        <thirdwatch translate="label" module="mitra">
+            <label>Settings</label>
+            <tab>thirdwatch</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+
+            <groups>
+                <thirdwatch_group translate="label" module="mitra">
+                    <label>Api settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+
+                    <fields>
+                        <thirdwatch_input translate="label">
+                            <label>API Key: </label>
+                            <comment><![CDATA[Obtain this key by registering on <a href="https://dashboard.thirdwatch.ai/login" target="_blank">here</a>.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </thirdwatch_input>
+
+                        <store_url translate="label store_url">
+                            <label>Store Base URL: </label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>For example, https://www.thirdwatch.ai</comment>
+                        </store_url>
+                    </fields>
+                </thirdwatch_group>
+            </groups>
+        </thirdwatch>
+    </sections>
+</config>

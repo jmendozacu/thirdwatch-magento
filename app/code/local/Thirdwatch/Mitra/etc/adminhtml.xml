@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <thirdwatch translate="title" module="thirdwatch_mitra">
+                                        <title>inchoo</title>
+                                        <sort_order>999</sort_order>
+                                    </thirdwatch>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
