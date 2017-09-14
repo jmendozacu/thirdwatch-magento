@@ -13,6 +13,7 @@ Three status will be added in the magento store configuration, namely,
 - Approved (Thirdwatch)
 - Flagged (Thirdwatch)
 - Declined (Thirdwatch)
+
 Once the order is sent to thirdwatch, the status will be "Under Review (Thirdwatch)". Now after processing the order at thirdwatch, a postback request to the store will be made which will update the order based on the flag raised by thirdwatch.
 
 Requirements
