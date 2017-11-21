@@ -88,7 +88,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'http://api.thirdwatch.co/event';
+    protected $host = 'https://api.thirdwatch.ai/event';
 
     /**
      * Timeout (second) of the HTTP request, by default set to 0, no timeout
