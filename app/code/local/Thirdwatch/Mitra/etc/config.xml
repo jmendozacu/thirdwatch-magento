@@ -137,6 +137,16 @@
                 </observers>
             </checkout_cart_product_add_after>
 
+            <checkout_cart_product_update_after>
+                <observers>
+                    <thirdwatch_mitra>
+                        <type>singleton</type>
+                        <class>mitra/observer</class>
+                        <method>cartUpdate</method>
+                    </thirdwatch_mitra>
+                </observers>
+            </checkout_cart_product_update_after>
+
             <sales_quote_remove_item>
                 <observers>
                     <thirdwatch_mitra>

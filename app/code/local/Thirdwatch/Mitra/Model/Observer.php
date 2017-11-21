@@ -33,25 +33,25 @@ class Thirdwatch_Mitra_Model_Observer{
         $scorePostback = join('/', array(trim($storeURL, '/'), "mitra/response/getresponse/"));
         $actionPostback = join('/', array(trim($storeURL, '/'), "mitra/action/getresponse/"));
 
-        try{
-            $testRespScore = $this->testPostback($scorePostback);
-            if (!$testRespScore){
-                Mage::throwException('Testing score postback failed');
-            }
-        } catch (Exception $e){
-            Mage::throwException('Testing score postback failed');
-        }
+       try{
+           $testRespScore = $this->testPostback($scorePostback);
+           if (!$testRespScore){
+               Mage::throwException('Testing score postback failed');
+           }
+       } catch (Exception $e){
+           Mage::throwException('Testing score postback failed');
+       }
 
-        try{
-            $testRespPostback = $this->testPostback($actionPostback);
-            if (!$testRespPostback){
-                Mage::throwException('Testing response postback failed');
-            }
-        } catch (Exception $e){
-            Mage::throwException('Testing response postback failed');
-        }
+       try{
+           $testRespPostback = $this->testPostback($actionPostback);
+           if (!$testRespPostback){
+               Mage::throwException('Testing response postback failed');
+           }
+       } catch (Exception $e){
+           Mage::throwException('Testing response postback failed');
+       }
 
-        $client = new Varien_Http_Client('https://api.thirdwatch.ai/neo/v1/addpostbackurl/');
+        $client = new Varien_Http_Client('http://api.thirdwatch.co/neo/v1/addpostbackurl/');
         $client->setMethod(Varien_Http_Client::POST);
         $client->setHeaders('Content-type','application/json');
         $jsonRequest = array(
@@ -148,11 +148,11 @@ class Thirdwatch_Mitra_Model_Observer{
                 }
 
                 if ($newState == "new" and $oldState == ""){
-                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_CREATE);
+                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
                 }
-                else if ($oldState == "new" and $newState == "processing"){
-                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_ONLY_TRANSACTION);
-                }
+//                else if ($oldState == "new" and $newState == "processing"){
+//                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_ONLY_TRANSACTION);
+//                }
                 else if ($newState == "processing" and $oldState == ""){
                     Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
                 }
@@ -226,6 +226,18 @@ class Thirdwatch_Mitra_Model_Observer{
      */
     public function cartAdd($evt){
         Mage::helper('mitra/log')->log("cartAdd");
+        $item = $evt->getQuoteItem();
+        Mage::helper('mitra/order')->postCart($item);
+    }
+
+
+    /**
+     * this observer handles the event checkout_cart_product_add_after
+     * @param $evt
+     * $item class -- Mage_Sales_Model_Quote_Item
+     */
+    public function cartUpdate($evt){
+        Mage::helper('mitra/log')->log("cartUpdate");
         $item = $evt->getQuoteItem();
         Mage::helper('mitra/order')->postCart($item);
     }

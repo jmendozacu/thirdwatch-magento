@@ -1,8 +1,8 @@
 <?php
-require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch_php_sdk' . DIRECTORY_SEPARATOR . 'autoload.php');
-use \Swagger\Client\Api;
-use \Swagger\Client\Model;
-use \Swagger\Client\Common;
+require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch-php' . DIRECTORY_SEPARATOR . 'autoload.php');
+use \ai\thirdwatch\Api;
+use \ai\thirdwatch\Model;
+use \ai\thirdwatch\Common;
 
 class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
 {
@@ -10,7 +10,7 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
     {
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
         $customerInfo = array();
@@ -28,8 +28,8 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
             $customerInfo['_origin_timestamp'] = (string) $currentTimestamp . '000';
             $customerInfo['_login_status'] = "_success";
 
-            $api_instance = new \Swagger\Client\Api\LoginApi();
-            $body = new \Swagger\Client\Model\Login($customerInfo);
+            $api_instance = new \ai\thirdwatch\Api\LoginApi();
+            $body = new \ai\thirdwatch\Model\Login($customerInfo);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
@@ -45,7 +45,7 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
     public function postLogout($customer){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
         $customerInfo = array();
@@ -62,8 +62,8 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
             $customerInfo['_origin_timestamp'] = (string) $currentTimestamp . '000';
             $customerInfo['_login_status'] = "_success";
 
-            $api_instance = new \Swagger\Client\Api\LogoutApi();
-            $body = new \Swagger\Client\Model\Logout($customerInfo);
+            $api_instance = new \ai\thirdwatch\Api\LogoutApi();
+            $body = new \ai\thirdwatch\Model\Logout($customerInfo);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());

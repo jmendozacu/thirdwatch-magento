@@ -1,8 +1,7 @@
 <?php
-require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch_php_sdk' . DIRECTORY_SEPARATOR . 'autoload.php');
-use \Swagger\Client\Api;
-use \Swagger\Client\Model;
-use \Swagger\Client\Common;
+require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch-php' . DIRECTORY_SEPARATOR . 'autoload.php');
+//use \ai\thirdwatch\Api;
+//use \ai\thirdwatch\Model;
 
 class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 {
@@ -175,7 +174,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     public function postCart($item){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         $cartData = array();
@@ -195,12 +194,15 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 
             $cartData['_item'] = $this->getLineItemData($item);
 
-            $api_instance = new \Swagger\Client\Api\AddToCartApi();
-            $body = new \Swagger\Client\Model\AddToCart($cartData);
+            Mage::helper('mitra/log')->log($cartData);
+
+            $api_instance = new \ai\thirdwatch\Api\AddToCartApi();
+            $body = new \ai\thirdwatch\Model\AddToCart($cartData);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
         }
+        Mage::helper('mitra/log')->log($body);
 
         try {
             $api_instance->addToCart($body);
@@ -213,7 +215,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     public function removeCart($item){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         $cartData = array();
@@ -233,8 +235,8 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 
             $cartData['_item'] = $this->getLineItemData($item);
 
-            $api_instance = new \Swagger\Client\Api\RemoveFromCartApi();
-            $body = new \Swagger\Client\Model\RemoveFromCart($cartData);
+            $api_instance = new \ai\thirdwatch\Api\RemoveFromCartApi();
+            $body = new \ai\thirdwatch\Model\RemoveFromCart($cartData);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
@@ -283,7 +285,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             Mage::helper('mitra/log')->log($e->getMessage());
         }
 
-        $paymentJson = new \Swagger\Client\Model\PaymentMethod($paymentData);
+        $paymentJson = new \ai\thirdwatch\Model\PaymentMethod($paymentData);
         return $paymentJson;
     }
 
@@ -337,13 +339,13 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     public function createOrder($model){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         try {
             $orderData = $this->getOrder($model);
             Mage::helper('mitra/log')->log($orderData);
-            $api_instance = new \Swagger\Client\Api\CreateOrderApi();
-            $body = new \Swagger\Client\Model\CreateOrder($orderData);
+            $api_instance = new \ai\thirdwatch\Api\CreateOrderApi();
+            $body = new \ai\thirdwatch\Model\CreateOrder($orderData);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e);
@@ -381,12 +383,12 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     public function updateOrderStatus($model){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         try {
             $orderData = $this->getOrderStatus($model);
-            $api_instance = new \Swagger\Client\Api\OrderStatusApi();
-            $body = new \Swagger\Client\Model\OrderStatus($orderData);
+            $api_instance = new \ai\thirdwatch\Api\OrderStatusApi();
+            $body = new \ai\thirdwatch\Model\OrderStatus($orderData);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e);
@@ -446,13 +448,13 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     public function createTransaction($model, $txnType){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         try {
             $orderData = $this->getTransaction($model, $txnType);
             Mage::helper('mitra/log')->log($orderData);
-            $api_instance = new \Swagger\Client\Api\TransactionApi();
-            $body = new \Swagger\Client\Model\Transaction($orderData);
+            $api_instance = new \ai\thirdwatch\Api\TransactionApi();
+            $body = new \ai\thirdwatch\Model\Transaction($orderData);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());

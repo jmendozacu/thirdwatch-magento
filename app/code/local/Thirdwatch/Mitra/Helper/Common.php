@@ -1,8 +1,9 @@
 <?php
-require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch_php_sdk' . DIRECTORY_SEPARATOR . 'autoload.php');
-use \Swagger\Client\Api;
-use \Swagger\Client\Model;
-use \Swagger\Client\Common;
+require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch-php' . DIRECTORY_SEPARATOR . 'autoload.php');
+use \ai\thirdwatch\Api;
+use \ai\thirdwatch\Model;
+use \ai\thirdwatch\Common;
+
 
 class Thirdwatch_Mitra_Helper_Common extends Mage_Core_Helper_Abstract
 {
@@ -10,7 +11,7 @@ class Thirdwatch_Mitra_Helper_Common extends Mage_Core_Helper_Abstract
     public function getShippingAddress($model)
     {
         $address =  $this->getAddress($model);
-        $shipping_json = new \Swagger\Client\Model\ShippingAddress($address);
+        $shipping_json = new \ai\thirdwatch\Model\ShippingAddress($address);
         return $shipping_json;
 
     }
@@ -18,7 +19,7 @@ class Thirdwatch_Mitra_Helper_Common extends Mage_Core_Helper_Abstract
     public function getBillingAddress($model)
     {
         $address =  $this->getAddress($model);
-        $billing_json = new \Swagger\Client\Model\BillingAddress($address);
+        $billing_json = new \ai\thirdwatch\Model\BillingAddress($address);
         return $billing_json;
     }
 

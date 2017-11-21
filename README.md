@@ -23,7 +23,8 @@ Requirements
 
 Compatibility
 -------------
-- Magento >= 1.9
+- Magento = 1.9
+- Magento = 1.8
 
 Installation Instructions
 -------------------------

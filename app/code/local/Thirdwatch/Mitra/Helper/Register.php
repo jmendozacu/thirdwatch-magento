@@ -1,8 +1,8 @@
 <?php
-require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch_php_sdk' . DIRECTORY_SEPARATOR . 'autoload.php');
-use \Swagger\Client\Api;
-use \Swagger\Client\Model;
-use \Swagger\Client\Common;
+require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch-php' . DIRECTORY_SEPARATOR . 'autoload.php');
+use \ai\thirdwatch\Api;
+use \ai\thirdwatch\Model;
+use \ai\thirdwatch\Common;
 
 class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
 {
@@ -10,7 +10,7 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
     {
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerInfo = array();
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
@@ -42,8 +42,8 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
                 $customerInfo['_account_status'] = '_inactive';
             }
 
-            $api_instance = new \Swagger\Client\Api\CreateAccountApi();
-            $body = new \Swagger\Client\Model\CreateAccount($customerInfo);
+            $api_instance = new \ai\thirdwatch\Api\CreateAccountApi();
+            $body = new \ai\thirdwatch\Model\CreateAccount($customerInfo);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
@@ -60,7 +60,7 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
     {
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerInfo = array();
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
@@ -95,8 +95,8 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
             $customerInfo['_billing_address'] = Mage::helper('mitra/common')->getBillingAddress($customerData->getPrimaryBillingAddress());
             $customerInfo['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($customerData->getPrimaryShippingAddress());
 
-            $api_instance = new \Swagger\Client\Api\UpdateAccountApi();
-            $body = new \Swagger\Client\Model\UpdateAccount($customerInfo);
+            $api_instance = new \ai\thirdwatch\Api\UpdateAccountApi();
+            $body = new \ai\thirdwatch\Model\UpdateAccount($customerInfo);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
