@@ -25,7 +25,7 @@
                     <show_in_store>1</show_in_store>
 
                     <fields>
-                        <thirdwatch_input translate="label">
+                        <secret_key translate="label">
                             <label>API Key: </label>
                             <comment><![CDATA[Obtain this key by registering on <a href="https://dashboard.thirdwatch.ai/login" target="_blank">here</a>.]]></comment>
                             <frontend_type>text</frontend_type>
@@ -33,7 +33,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </thirdwatch_input>
+                        </secret_key>
 
                         <store_url translate="label store_url">
                             <label>Store Base URL: </label>
@@ -44,6 +44,18 @@
                             <show_in_store>1</show_in_store>
                             <comment>For example, https://www.thirdwatch.ai</comment>
                         </store_url>
+
+                        <plugin_active translate="label comment">
+                            <label>Is active?</label>
+                            <comment>Select yes to enable the thirdwatch plugin.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </plugin_active>
+
                     </fields>
                 </thirdwatch_group>
             </groups>

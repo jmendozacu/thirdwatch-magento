@@ -19,7 +19,7 @@ class Thirdwatch_Mitra_Model_Observer{
         }
     }
 
-    /**
+    /*
      * this observer handles the event admin_system_config_changed_section_thirdwatch
      * this function will be called whenever the thirdwatch config will be changed.
      * @param $evt
@@ -33,23 +33,23 @@ class Thirdwatch_Mitra_Model_Observer{
         $scorePostback = join('/', array(trim($storeURL, '/'), "mitra/response/getresponse/"));
         $actionPostback = join('/', array(trim($storeURL, '/'), "mitra/action/getresponse/"));
 
-       try{
-           $testRespScore = $this->testPostback($scorePostback);
-           if (!$testRespScore){
-               Mage::throwException('Testing score postback failed');
-           }
-       } catch (Exception $e){
-           Mage::throwException('Testing score postback failed');
-       }
+        try{
+            $testRespScore = $this->testPostback($scorePostback);
+            if (!$testRespScore){
+                Mage::throwException('Testing score postback failed');
+            }
+        } catch (Exception $e){
+            Mage::throwException('Testing score postback failed');
+        }
 
-       try{
-           $testRespPostback = $this->testPostback($actionPostback);
-           if (!$testRespPostback){
-               Mage::throwException('Testing response postback failed');
-           }
-       } catch (Exception $e){
-           Mage::throwException('Testing response postback failed');
-       }
+        try{
+            $testRespPostback = $this->testPostback($actionPostback);
+            if (!$testRespPostback){
+                Mage::throwException('Testing response postback failed');
+            }
+        } catch (Exception $e){
+            Mage::throwException('Testing response postback failed');
+        }
 
         $client = new Varien_Http_Client('http://api.thirdwatch.co/neo/v1/addpostbackurl/');
         $client->setMethod(Varien_Http_Client::POST);
@@ -83,9 +83,11 @@ class Thirdwatch_Mitra_Model_Observer{
      */
     public function salesOrderPaymentVoid($evt)
     {
-        Mage::helper('mitra/log')->log("salesOrderPaymentVoid");
-        $order = $evt->getPayment()->getOrder();
-        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_CANCEL);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("salesOrderPaymentVoid");
+            $order = $evt->getPayment()->getOrder();
+            Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_CANCEL);
+        }
     }
 
     /**
@@ -95,9 +97,11 @@ class Thirdwatch_Mitra_Model_Observer{
      */
     public function salesOrderPaymentRefund($evt)
     {
-        Mage::helper('mitra/log')->log("salesOrderPaymentRefund");
-        $order = $evt->getPayment()->getOrder();
-        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_REFUND);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("salesOrderPaymentRefund");
+            $order = $evt->getPayment()->getOrder();
+            Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_REFUND);
+        }
     }
 
     /**
@@ -107,9 +111,11 @@ class Thirdwatch_Mitra_Model_Observer{
      */
     public function salesOrderPaymentCancel($evt)
     {
-        Mage::helper('mitra/log')->log("salesOrderPaymentCancel");
-        $order = $evt->getPayment()->getOrder();
-        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_CANCEL);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("salesOrderPaymentCancel");
+            $order = $evt->getPayment()->getOrder();
+            Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_CANCEL);
+        }
     }
 
     /**
@@ -119,56 +125,97 @@ class Thirdwatch_Mitra_Model_Observer{
      */
     public function salesOrderSaveAfter($evt)
     {
-        Mage::helper('mitra/log')->log("salesOrderSaveAfter");
-
         $order = $evt->getOrder();
         if (!$order) {
             return;
         }
 
-        $newState = $order->getState();
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("salesOrderSaveAfter");
 
-        if ($order->dataHasChangedFor('state')) {
+            $order = $evt->getOrder();
+            if (!$order) {
+                return;
+            }
+
+            $newState = $order->getState();
             $oldState = $order->getOrigData('state');
+            $oldStatusLabel = $order->getOrigData('status');
 
-            if ($oldState == Mage_Sales_Model_Order::STATE_HOLDED and $newState == Mage_Sales_Model_Order::STATE_PROCESSING) {
-                Mage::helper('mitra/log')->log("Order : " . $order->getId() . " not notifying on unhold action");
-                return;
-            }
-            Mage::helper('mitra/log')->log("Order: " . $order->getId() . " state changed from: " . $oldState . " to: " . $newState);
-            if ($order->thirdwatchInSave) {
-                Mage::helper('mitra/log')->log("Order : " . $order->getId() . " is already thirdwatchInSave");
-                return;
-            }
 
-            $order->thirdwatchInSave = true;
-            try {
-                if(!Mage::registry("thirdwatch-order")) {
-                    Mage::register("thirdwatch-order", $order);
+            Mage::helper('mitra/log')->log("New State : ". $newState);
+            Mage::helper('mitra/log')->log("Old State : ". $oldState);
+
+            if ($order->dataHasChangedFor('state')) {
+
+                if ($oldState == Mage_Sales_Model_Order::STATE_HOLDED and $newState == Mage_Sales_Model_Order::STATE_PROCESSING) {
+                    Mage::helper('mitra/log')->log("Order : " . $order->getId() . " not notifying on unhold action");
+                    return;
                 }
 
-                if ($newState == "new" and $oldState == ""){
-                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
+                Mage::helper('mitra/log')->log("Order: " . $order->getId() . " state changed from: " . $oldState . " to: " . $newState);
+
+                if ($order->thirdwatchInSave) {
+                    Mage::helper('mitra/log')->log("Order : " . $order->getId() . " is already thirdwatchInSave");
+                    return;
                 }
-//                else if ($oldState == "new" and $newState == "processing"){
-//                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_ONLY_TRANSACTION);
-//                }
-                else if ($newState == "processing" and $oldState == ""){
-                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
+
+                $statusHelper = Mage::helper('mitra/order_status');
+
+                Mage::helper('mitra/log')->log($statusHelper->getThirdwatchFlaggedStatusCode());
+                Mage::helper('mitra/log')->log($statusHelper->getOnHoldStatusCode());
+
+                if($oldState == Mage_Sales_Model_Order::STATE_HOLDED and ($oldStatusLabel == $statusHelper->getThirdwatchFlaggedStatusCode() or $oldStatusLabel == $statusHelper->getOnHoldStatusCode())){
+                    if ( strlen($newState) < 1 and $oldStatusLabel == $statusHelper->getThirdwatchFlaggedStatusCode()) {
+                        if ($order->getBaseTotalDue() > 0){
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'pending');
+                            $order->save();
+                        }
+                        else if ($order->getBaseTotalDue() == 0){
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
+                            $order->save();
+                        }
+                    }
+
+                    if ( strlen($newState) < 1 and $oldStatusLabel == $statusHelper->getOnHoldStatusCode()) {
+
+                        if ($order->getBaseTotalDue() > 0){
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'pending');
+                            $order->save();
+                        }
+                        else if ($order->getBaseTotalDue() == 0){
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
+                            $order->save();
+                        }
+                    }
                 }
-                else if ($newState == "closed" and $oldState == "complete"){
-                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_UPDATE);
+
+                $order->thirdwatchInSave = true;
+                try {
+                    if (!Mage::registry("thirdwatch-order")) {
+                        Mage::register("thirdwatch-order", $order);
+                    }
+
+                    if ($newState == "new" and $oldState == "") {
+                        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
+
+                    } else if ($newState == "processing" and $oldState == "") {
+                        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
+
+                    } else if ($newState == "closed" and $oldState == "complete") {
+                        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_UPDATE);
+
+                    } else if ($newState == "complete" and $oldState == "processing") {
+                        Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_UPDATE);
+                    }
+                    Mage::unregister("thirdwatch-order");
+                } catch (Exception $e) {
+                    // There is no need to do anything here.  The exception has already been handled and a retry scheduled.
+                    // We catch this exception so that the order is still saved in Magento.
                 }
-                else if ($newState == "complete" and $oldState == "processing"){
-                    Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_UPDATE);
-                }
-                Mage::unregister("thirdwatch-order");
-            } catch (Exception $e) {
-                // There is no need to do anything here.  The exception has already been handled and a retry scheduled.
-                // We catch this exception so that the order is still saved in Magento.
+            } else {
+                Mage::helper('mitra/log')->log("Order: '" . $order->getId() . "' state didn't change on save - not posting again: " . $newState);
             }
-        } else {
-            Mage::helper('mitra/log')->log("Order: '" . $order->getId() . "' state didn't change on save - not posting again: " . $newState);
         }
     }
 
@@ -178,9 +225,11 @@ class Thirdwatch_Mitra_Model_Observer{
      * @param $evt
      */
     public function customerLogin($evt){
-        Mage::helper('mitra/log')->log("customerLogin");
-        $customer = $evt->getCustomer();
-        Mage::helper('mitra/login')->postLogin($customer);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("customerLogin");
+            $customer = $evt->getCustomer();
+            Mage::helper('mitra/login')->postLogin($customer);
+        }
     }
 
     /**
@@ -189,9 +238,11 @@ class Thirdwatch_Mitra_Model_Observer{
      * @param $evt
      */
     public function customerLogout($evt){
-        Mage::helper('mitra/log')->log("customerLogout");
-        $customer = $evt->getCustomer();
-        Mage::helper('mitra/login')->postLogout($customer);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("customerLogout");
+            $customer = $evt->getCustomer();
+            Mage::helper('mitra/login')->postLogout($customer);
+        }
     }
 
     /**
@@ -200,9 +251,11 @@ class Thirdwatch_Mitra_Model_Observer{
      * @param $evt
      */
     public function customerRegisterSuccess($evt){
-        Mage::helper('mitra/log')->log("customerRegisterSuccess");
-        $customer = $evt->getCustomer();
-        Mage::helper('mitra/register')->postRegister($customer);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("customerRegisterSuccess");
+            $customer = $evt->getCustomer();
+            Mage::helper('mitra/register')->postRegister($customer);
+        }
     }
 
     /**
@@ -212,10 +265,12 @@ class Thirdwatch_Mitra_Model_Observer{
      * @param $evt
      */
     public function customerUpdate($evt){
-        Mage::helper('mitra/log')->log("customerUpdate");
-        $customer = $evt->getCustomer();
-        if ($customer->getOrigData()) {
-            Mage::helper('mitra/register')->postCustomerUpdate($customer);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("customerUpdate");
+            $customer = $evt->getCustomer();
+            if ($customer->getOrigData()) {
+                Mage::helper('mitra/register')->postCustomerUpdate($customer);
+            }
         }
     }
 
@@ -225,9 +280,11 @@ class Thirdwatch_Mitra_Model_Observer{
      * $item class -- Mage_Sales_Model_Quote_Item
      */
     public function cartAdd($evt){
-        Mage::helper('mitra/log')->log("cartAdd");
-        $item = $evt->getQuoteItem();
-        Mage::helper('mitra/order')->postCart($item);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("cartAdd");
+            $item = $evt->getQuoteItem();
+            Mage::helper('mitra/order')->postCart($item);
+        }
     }
 
 
@@ -237,9 +294,11 @@ class Thirdwatch_Mitra_Model_Observer{
      * $item class -- Mage_Sales_Model_Quote_Item
      */
     public function cartUpdate($evt){
-        Mage::helper('mitra/log')->log("cartUpdate");
-        $item = $evt->getQuoteItem();
-        Mage::helper('mitra/order')->postCart($item);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("cartUpdate");
+            $item = $evt->getQuoteItem();
+            Mage::helper('mitra/order')->postCart($item);
+        }
     }
 
     /**
@@ -248,8 +307,10 @@ class Thirdwatch_Mitra_Model_Observer{
      * $item class -- Mage_Sales_Model_Quote_Item
      */
     public function cartRemove($evt){
-        Mage::helper('mitra/log')->log("cartRemove");
-        $item = $evt->getQuoteItem();
-        Mage::helper('mitra/order')->removeCart($item);
+        if (Mage::helper('mitra')->isPluginActive()) {
+            Mage::helper('mitra/log')->log("cartRemove");
+            $item = $evt->getQuoteItem();
+            Mage::helper('mitra/order')->removeCart($item);
+        }
     }
 }

@@ -38,7 +38,7 @@ class Thirdwatch_Mitra_Helper_Common extends Mage_Core_Helper_Abstract
             '_address1' => $address_1,
             '_address2' => $address_2,
             '_city' => $address->getCity(),
-            '_country' => Mage::getModel('directory/country')->load($address->getCountryId())->getName(),
+            '_country' => Mage::getModel('directory/country')->load($address->getCountryId())->getCountryId(),
             '_region' => $address->getRegion(),
             '_zipcode' => $address->getPostcode(),
             '_phone' => $address->getTelephone(),

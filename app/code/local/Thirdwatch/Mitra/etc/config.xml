@@ -195,4 +195,11 @@
             </resources>
         </acl>
     </adminhtml>
+    <default>
+        <thirdwatch>
+            <thirdwatch_group>
+                <plugin_active>1</plugin_active>
+            </thirdwatch_group>
+        </thirdwatch>
+    </default>
 </config>
