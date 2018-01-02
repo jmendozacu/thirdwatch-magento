@@ -76,6 +76,44 @@ class Thirdwatch_Mitra_Model_Observer{
         }
     }
 
+    private function updateOrderStatusOnTw($order){
+        Mage::helper('mitra/log')->log("Update Order Status");
+
+        $helper = Mage::helper('mitra');
+        $secret = $helper->getKey();
+
+        $client = new Varien_Http_Client('http://api.thirdwatch.co/neo/v1/clientaction');
+        $client->setMethod(Varien_Http_Client::POST);
+        $client->setHeaders('Content-type','application/json');
+
+        $order_id = $order->getId() . '_' . $order->getIncrementId();
+
+        $jsonRequest = array(
+            'secret'=>$secret,
+            'order_id'=>$order_id,
+            'order_timestamp'=>(string)Varien_Date::toTimestamp($order->getCreatedAt()) . '000',
+            'action_type' =>'approved',
+            'message' =>'Accepted on magento dashboard',
+        );
+
+        $client->setRawData(Mage::helper('core')->jsonEncode($jsonRequest));
+
+        try{
+            $response = $client->request();
+
+            if ($response->isSuccessful()) {
+                Mage::helper('mitra/log')->log($response->getBody());
+            }
+            else{
+                Mage::throwException("Action not updated on thirdwatch dashboard.");
+            }
+        } catch (Exception $e) {
+            Mage::helper('mitra/log')->log($e->getMessage());
+            Mage::throwException("Some error while updated action on thirdwatch dashboard.");
+        }
+
+    }
+
     /**
      * this observer handles the event sales_order_payment_void
      * this function will be called whenever the payment gets void.
@@ -170,10 +208,12 @@ class Thirdwatch_Mitra_Model_Observer{
                         if ($order->getBaseTotalDue() > 0){
                             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'pending');
                             $order->save();
+                            $this->updateOrderStatusOnTw($order);
                         }
                         else if ($order->getBaseTotalDue() == 0){
                             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
                             $order->save();
+                            $this->updateOrderStatusOnTw($order);
                         }
                     }
 
