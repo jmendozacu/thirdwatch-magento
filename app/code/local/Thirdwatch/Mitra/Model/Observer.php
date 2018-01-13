@@ -202,11 +202,13 @@ class Thirdwatch_Mitra_Model_Observer{
 
                 Mage::helper('mitra/log')->log($statusHelper->getThirdwatchFlaggedStatusCode());
                 Mage::helper('mitra/log')->log($statusHelper->getOnHoldStatusCode());
+                Mage::helper('mitra/log')->log($statusHelper->getThirdwatchDeclinedStatusCode());
 
-                if($oldState == Mage_Sales_Model_Order::STATE_HOLDED and ($oldStatusLabel == $statusHelper->getThirdwatchFlaggedStatusCode() or $oldStatusLabel == $statusHelper->getOnHoldStatusCode())){
+                if($oldState == Mage_Sales_Model_Order::STATE_HOLDED and ($oldStatusLabel == $statusHelper->getThirdwatchFlaggedStatusCode() or $oldStatusLabel == $statusHelper->getOnHoldStatusCode()) or $oldStatusLabel == $statusHelper->getThirdwatchDeclinedStatusCode()){
+
                     if ( strlen($newState) < 1 and $oldStatusLabel == $statusHelper->getThirdwatchFlaggedStatusCode()) {
                         if ($order->getBaseTotalDue() > 0){
-                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'pending');
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
                             $order->save();
                             $this->updateOrderStatusOnTw($order);
                         }
@@ -220,12 +222,25 @@ class Thirdwatch_Mitra_Model_Observer{
                     if ( strlen($newState) < 1 and $oldStatusLabel == $statusHelper->getOnHoldStatusCode()) {
 
                         if ($order->getBaseTotalDue() > 0){
-                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'pending');
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
                             $order->save();
                         }
                         else if ($order->getBaseTotalDue() == 0){
                             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
                             $order->save();
+                        }
+                    }
+
+                    if ( strlen($newState) < 1 and $oldStatusLabel == $statusHelper->getThirdwatchDeclinedStatusCode()) {
+                        if ($order->getBaseTotalDue() > 0){
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
+                            $order->save();
+                            $this->updateOrderStatusOnTw($order);
+                        }
+                        else if ($order->getBaseTotalDue() == 0){
+                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'processing');
+                            $order->save();
+                            $this->updateOrderStatusOnTw($order);
                         }
                     }
                 }else {

@@ -43,12 +43,16 @@ class Thirdwatch_Mitra_ActionController extends Mage_Core_Controller_Front_Actio
                 try {
                     if ($actionType === "approved"){
                         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, 'thirdwatch_approved');
-                        $order->addStatusHistoryComment($comment);
+                        if (!empty($comment) and strtolower($comment) != "none"){
+                            $order->addStatusHistoryComment($comment);
+                        }
                         $order->save();
                     }
                     else{
                         $order->setState(Mage_Sales_Model_Order::STATE_HOLDED, 'thirdwatch_declined');
-                        $order->addStatusHistoryComment($comment);
+                        if (!empty($comment) and strtolower($comment) != "none"){
+                            $order->addStatusHistoryComment($comment);
+                        }
                         $order->save();
                     }
                     $statusCode = 200;
