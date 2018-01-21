@@ -195,6 +195,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $cartData['_item'] = $this->getLineItemData($item);
             $api_instance = new \ai\thirdwatch\Api\AddToCartApi();
             $body = new \ai\thirdwatch\Model\AddToCart($cartData);
+            Mage::helper('mitra/log')->log($body);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
@@ -303,7 +304,16 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         return Mage::getModel('sales/order')->load($order_id);
     }
 
+    private function checkIsPrepaid($order){
+        if ($order->getBaseTotalDue() > 0){
+            return False;
+        }
+        else{
+            return True;
+        }
+    }
     private function getOrder($model){
+        Mage::helper('mitra/log')->log("Get Order");
         $orderData = array();
         $customerData = $this->_getCustomerObject($model->getCustomerId());
         $session = Mage::getSingleton('core/session');
@@ -320,6 +330,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $orderData['_user_email'] = (string) $model->getCustomerEmail();
             $orderData['_amount'] = (string) $model->getGrandTotal();
             $orderData['_currency_code'] = (string) $model->getOrderCurrencyCode();
+            $orderData['_is_pre_paid'] = $this->checkIsPrepaid($model);
             $orderData['_billing_address'] = Mage::helper('mitra/common')->getBillingAddress($model->getBillingAddress());
             $orderData['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($model->getShippingAddress());
             $orderData['_items'] = $this->getLineItems($model);
@@ -333,6 +344,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 
     public function createOrder($model){
         $helper = Mage::helper('mitra');
+        Mage::helper('mitra/log')->log("Create Order");
         $thirdwatchKey = $helper->getKey();
         \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 

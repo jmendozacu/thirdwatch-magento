@@ -200,9 +200,9 @@ class Thirdwatch_Mitra_Model_Observer{
 
                 $statusHelper = Mage::helper('mitra/order_status');
 
-                Mage::helper('mitra/log')->log($statusHelper->getThirdwatchFlaggedStatusCode());
-                Mage::helper('mitra/log')->log($statusHelper->getOnHoldStatusCode());
-                Mage::helper('mitra/log')->log($statusHelper->getThirdwatchDeclinedStatusCode());
+//                Mage::helper('mitra/log')->log($statusHelper->getThirdwatchFlaggedStatusCode());
+//                Mage::helper('mitra/log')->log($statusHelper->getOnHoldStatusCode());
+//                Mage::helper('mitra/log')->log($statusHelper->getThirdwatchDeclinedStatusCode());
 
                 if($oldState == Mage_Sales_Model_Order::STATE_HOLDED and ($oldStatusLabel == $statusHelper->getThirdwatchFlaggedStatusCode() or $oldStatusLabel == $statusHelper->getOnHoldStatusCode()) or $oldStatusLabel == $statusHelper->getThirdwatchDeclinedStatusCode()){
 
@@ -345,7 +345,9 @@ class Thirdwatch_Mitra_Model_Observer{
     public function cartAdd($evt){
         if (Mage::helper('mitra')->isPluginActive()) {
             Mage::helper('mitra/log')->log("cartAdd");
-            $item = $evt->getQuoteItem();
+            $product = $evt->getEvent()->getProduct();
+            $quote = Mage::getModel('checkout/cart')->getQuote();
+            $item = $quote->getItemByProduct( $product );
             Mage::helper('mitra/order')->postCart($item);
         }
     }
