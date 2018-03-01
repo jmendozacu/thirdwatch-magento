@@ -127,16 +127,26 @@
                 </observers>
             </customer_save_after>
 
-            <checkout_cart_product_add_after>
-                <observers>
-                    <thirdwatch_mitra>
-                        <type>singleton</type>
-                        <class>mitra/observer</class>
-                        <method>cartAdd</method>
-                    </thirdwatch_mitra>
-                </observers>
-            </checkout_cart_product_add_after>
+            <!--<checkout_cart_product_add_after>-->
+                <!--<observers>-->
+                    <!--<thirdwatch_mitra>-->
+                        <!--<type>singleton</type>-->
+                        <!--<class>mitra/observer</class>-->
+                        <!--<method>cartAdd</method>-->
+                    <!--</thirdwatch_mitra>-->
+                <!--</observers>-->
+            <!--</checkout_cart_product_add_after>-->
 
+
+            <checkout_cart_add_product_complete>
+                <observers>
+                <thirdwatch_mitra>
+                <type>singleton</type>
+                <class>mitra/observer</class>
+                <method>cartAdd</method>
+                </thirdwatch_mitra>
+                </observers>
+            </checkout_cart_add_product_complete>
             <checkout_cart_product_update_after>
                 <observers>
                     <thirdwatch_mitra>
@@ -195,4 +205,11 @@
             </resources>
         </acl>
     </adminhtml>
+    <default>
+        <thirdwatch>
+            <thirdwatch_group>
+                <plugin_active>1</plugin_active>
+            </thirdwatch_group>
+        </thirdwatch>
+    </default>
 </config>

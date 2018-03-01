@@ -1,7 +1,6 @@
 <?php
+
 require_once(Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR . 'thirdwatch-php' . DIRECTORY_SEPARATOR . 'autoload.php');
-//use \ai\thirdwatch\Api;
-//use \ai\thirdwatch\Model;
 
 class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 {
@@ -16,8 +15,8 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     private $_customer = array();
     protected $requestData = array();
 
-    /**
-     * Submit an order to thirdwatch.
+    /*
+     * Submit an order to Thirdwatch.
      * @param Mage_Sales_Model_Order $order
      * @param string $action - one of self::ACTION_*
      */
@@ -99,22 +98,23 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         $currencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
         $countryCode = Mage::getStoreConfig('general/country/default');
 
-        $lineItemData = array(
-            '_price' => (string) $product->getPrice(),
-            '_quantity' => intval($val->getQty()),
-            '_product_title' => (string) $val->getName(),
-            '_sku' => (string) $val->getSku(),
-            '_item_id' => (string) $product->getId(),
-            '_product_weight' => (string) $val->getWeight(),
-            '_category' => (string) $category,
-            '_brand' => (string) $brand,
-            '_description' => (string) $product->getDescription(),
-            '_description_short' => (string) $product->getShortDescription(),
-            '_manufacturer' => (string)$brand,
-            '_currency_code' => (string)$currencyCode,
-            '_country' => (string)$countryCode,
-        );
-        return $lineItemData;
+        $lineItemData = array();
+        $lineItemData['_price'] = (string) $val->getRowTotalInclTax();
+        $lineItemData['_quantity'] = intval($val->getQty());
+        $lineItemData['_product_title'] = (string) $val->getName();
+        $lineItemData['_sku'] = (string) $val->getSku();
+        $lineItemData['_item_id'] = (string) $product->getId();
+        $lineItemData['_product_weight'] = (string) $val->getWeight();
+        $lineItemData['_category'] = (string) $category;
+        $lineItemData['_brand'] = (string) $brand;
+        $lineItemData['_description'] = (string) $product->getDescription();
+        $lineItemData['_description_short'] = (string) $product->getShortDescription();
+        $lineItemData['_manufacturer'] = (string)$brand;
+        $lineItemData['_currency_code'] = (string)$currencyCode;
+        $lineItemData['_country'] = (string)$countryCode;
+
+        $itemJson = new \ai\thirdwatch\Model\Item($lineItemData);
+        return $itemJson;
     }
 
     /**
@@ -153,22 +153,23 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         $currencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
         $countryCode = Mage::getStoreConfig('general/country/default');
 
-        $lineItemData = array(
-            '_price' => (string) $val->getPrice(),
-            '_quantity' => intval($val->getQtyOrdered()),
-            '_product_title' => (string) $val->getName(),
-            '_sku' => (string) $val->getSku(),
-            '_item_id' => (string) $product->getId(),
-            '_product_weight' => (string) $val->getWeight(),
-            '_category' => (string) $category,
-            '_brand' => (string) $brand,
-            '_description' => (string) $product->getDescription(),
-            '_description_short' => (string) $product->getShortDescription(),
-            '_manufacturer' => (string)$brand,
-            '_currency_code' => (string)$currencyCode,
-            '_country' => (string)$countryCode,
-        );
-        return $lineItemData;
+        $lineItemData = array();
+        $lineItemData['_price'] = (string) $val->getPrice();
+        $lineItemData['_quantity'] = intval($val->getQtyOrdered());
+        $lineItemData['_product_title'] = (string) $val->getName();
+        $lineItemData['_sku'] = (string) $val->getSku();
+        $lineItemData['_item_id'] = (string) $product->getId();
+        $lineItemData['_product_weight'] = (string) $val->getWeight();
+        $lineItemData['_category'] = (string) $category;
+        $lineItemData['_brand'] = (string) $brand;
+        $lineItemData['_description'] = (string) $product->getDescription();
+        $lineItemData['_description_short'] = (string) $product->getShortDescription();
+        $lineItemData['_manufacturer'] = (string)$brand;
+        $lineItemData['_currency_code'] = (string)$currencyCode;
+        $lineItemData['_country'] = (string)$countryCode;
+
+        $itemJson = new \ai\thirdwatch\Model\Item($lineItemData);
+        return $itemJson;
     }
 
     public function postCart($item){
@@ -191,25 +192,20 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $cartData['_session_id'] = (string) $SID;
             $cartData['_device_ip'] = (string) $remoteAddress;
             $cartData['_origin_timestamp'] = (string) $currentTimestamp . '000';
-
             $cartData['_item'] = $this->getLineItemData($item);
-
-            Mage::helper('mitra/log')->log($cartData);
-
             $api_instance = new \ai\thirdwatch\Api\AddToCartApi();
             $body = new \ai\thirdwatch\Model\AddToCart($cartData);
+            Mage::helper('mitra/log')->log($body);
         }
         catch (Exception $e){
             Mage::helper('mitra/log')->log($e->getMessage());
         }
-        Mage::helper('mitra/log')->log($body);
 
         try {
             $api_instance->addToCart($body);
         } catch (Exception $e) {
             Mage::helper('mitra/log')->log($e->getMessage());
         }
-
     }
 
     public function removeCart($item){
@@ -308,7 +304,16 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         return Mage::getModel('sales/order')->load($order_id);
     }
 
+    private function checkIsPrepaid($order){
+        if ($order->getBaseTotalDue() > 0){
+            return False;
+        }
+        else{
+            return True;
+        }
+    }
     private function getOrder($model){
+        Mage::helper('mitra/log')->log("Get Order");
         $orderData = array();
         $customerData = $this->_getCustomerObject($model->getCustomerId());
         $session = Mage::getSingleton('core/session');
@@ -325,6 +330,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $orderData['_user_email'] = (string) $model->getCustomerEmail();
             $orderData['_amount'] = (string) $model->getGrandTotal();
             $orderData['_currency_code'] = (string) $model->getOrderCurrencyCode();
+            $orderData['_is_pre_paid'] = $this->checkIsPrepaid($model);
             $orderData['_billing_address'] = Mage::helper('mitra/common')->getBillingAddress($model->getBillingAddress());
             $orderData['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($model->getShippingAddress());
             $orderData['_items'] = $this->getLineItems($model);
@@ -338,12 +344,12 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 
     public function createOrder($model){
         $helper = Mage::helper('mitra');
+        Mage::helper('mitra/log')->log("Create Order");
         $thirdwatchKey = $helper->getKey();
         \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         try {
             $orderData = $this->getOrder($model);
-            Mage::helper('mitra/log')->log($orderData);
             $api_instance = new \ai\thirdwatch\Api\CreateOrderApi();
             $body = new \ai\thirdwatch\Model\CreateOrder($orderData);
         }
@@ -430,7 +436,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $orderData['_billing_address'] = Mage::helper('mitra/common')->getBillingAddress($model->getBillingAddress());
             $orderData['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($model->getShippingAddress());
             $orderData['_items'] = $this->getLineItems($model);
-            $orderData['_payment_methods'] = array($this->getPaymentDetails($model));
+            $orderData['_payment_method'] = $this->getPaymentDetails($model);
 
             if ($txnId){
                 $orderData['_transaction_id'] = $txnId;
