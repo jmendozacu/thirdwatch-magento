@@ -7,10 +7,11 @@ The first version of the Thirdwatch API is an exciting step forward towards maki
 # Introduction 
 
 You will get an api key for staging from thirdwatch. You have to mail us at hello[at]thirdwatch.ai, in order to get the api key.
-Once you've the key, it's easy to start sending data to Thirdwatch.  All endpoints are only accessible via http and are located at `api.thirdwatch.co`. 
+
+Once you've the key, it's easy to start sending data to Thirdwatch.  All endpoints are only accessible via https and are located at `api.thirdwatch.ai`. 
 For instance: you can send event at the moment by ```HTTP POST``` request to the following URL with your API key in ```Header``` and ```JSON``` data in request body. 
 
-```   http://api.thirdwatch.co/event/v1 ``` 
+```   https://api.thirdwatch.ai/event/v1 ``` 
 
 Every API request must contain ```API Key``` in header value ```X-THIRDWATCH-API-KEY```. Every event must contain your ```_userId``` (if this is not available, you can alternatively provide a ```_sessionId``` value also in ```_userId```). 
 
@@ -87,7 +88,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://api.thirdwatch.co/event*
+All URIs are relative to *https://api.thirdwatch.ai/event*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

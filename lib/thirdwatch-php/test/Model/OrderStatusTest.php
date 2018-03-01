@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * OrderStatusTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description OrderStatus
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,84 +78,84 @@ class OrderStatusTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "userId"
+     * Test attribute "_user_id"
      */
     public function testPropertyUserId()
     {
     }
 
     /**
-     * Test attribute "sessionId"
+     * Test attribute "_session_id"
      */
     public function testPropertySessionId()
     {
     }
 
     /**
-     * Test attribute "orderId"
+     * Test attribute "_order_id"
      */
     public function testPropertyOrderId()
     {
     }
 
     /**
-     * Test attribute "orderStatus"
+     * Test attribute "_order_status"
      */
     public function testPropertyOrderStatus()
     {
     }
 
     /**
-     * Test attribute "reason"
+     * Test attribute "_reason"
      */
     public function testPropertyReason()
     {
     }
 
     /**
-     * Test attribute "shippingCost"
+     * Test attribute "_shipping_cost"
      */
     public function testPropertyShippingCost()
     {
     }
 
     /**
-     * Test attribute "trackingNumber"
+     * Test attribute "_tracking_number"
      */
     public function testPropertyTrackingNumber()
     {
     }
 
     /**
-     * Test attribute "trackingMethod"
+     * Test attribute "_tracking_method"
      */
     public function testPropertyTrackingMethod()
     {
     }
 
     /**
-     * Test attribute "source"
+     * Test attribute "_source"
      */
     public function testPropertySource()
     {
     }
 
     /**
-     * Test attribute "analyst"
+     * Test attribute "_analyst"
      */
     public function testPropertyAnalyst()
     {
     }
 
     /**
-     * Test attribute "description"
+     * Test attribute "_description"
      */
     public function testPropertyDescription()
     {
     }
 
     /**
-     * Test attribute "customInfo"
+     * Test attribute "_custom_info"
      */
     public function testPropertyCustomInfo()
     {

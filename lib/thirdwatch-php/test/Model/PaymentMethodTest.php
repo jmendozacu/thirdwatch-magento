@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * PaymentMethodTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description The payment_method field type represents information about the payment methods provided by the user. The value must be a nested object with the appropriate item subfields for the given payment method. Generally usedwith the create_order or transaction events.
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,77 +78,77 @@ class PaymentMethodTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "paymentType"
+     * Test attribute "_payment_type"
      */
     public function testPropertyPaymentType()
     {
     }
 
     /**
-     * Test attribute "amount"
+     * Test attribute "_amount"
      */
     public function testPropertyAmount()
     {
     }
 
     /**
-     * Test attribute "currencyCode"
+     * Test attribute "_currency_code"
      */
     public function testPropertyCurrencyCode()
     {
     }
 
     /**
-     * Test attribute "paymentGateway"
+     * Test attribute "_payment_gateway"
      */
     public function testPropertyPaymentGateway()
     {
     }
 
     /**
-     * Test attribute "accountName"
+     * Test attribute "_account_name"
      */
     public function testPropertyAccountName()
     {
     }
 
     /**
-     * Test attribute "cardBin"
+     * Test attribute "_card_bin"
      */
     public function testPropertyCardBin()
     {
     }
 
     /**
-     * Test attribute "avsResponseCode"
+     * Test attribute "_avs_response_code"
      */
     public function testPropertyAvsResponseCode()
     {
     }
 
     /**
-     * Test attribute "cvvResponseCode"
+     * Test attribute "_cvv_response_code"
      */
     public function testPropertyCvvResponseCode()
     {
     }
 
     /**
-     * Test attribute "cardLast4"
+     * Test attribute "_card_last4"
      */
     public function testPropertyCardLast4()
     {
     }
 
     /**
-     * Test attribute "cardExpiryMonth"
+     * Test attribute "_card_expiry_month"
      */
     public function testPropertyCardExpiryMonth()
     {
     }
 
     /**
-     * Test attribute "cardExpiryYear"
+     * Test attribute "_card_expiry_year"
      */
     public function testPropertyCardExpiryYear()
     {

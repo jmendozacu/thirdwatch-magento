@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * SendMessageTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description SendMessage
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,56 +78,56 @@ class SendMessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "userId"
+     * Test attribute "_user_id"
      */
     public function testPropertyUserId()
     {
     }
 
     /**
-     * Test attribute "sessionId"
+     * Test attribute "_session_id"
      */
     public function testPropertySessionId()
     {
     }
 
     /**
-     * Test attribute "deviceIp"
+     * Test attribute "_device_ip"
      */
     public function testPropertyDeviceIp()
     {
     }
 
     /**
-     * Test attribute "originTimestamp"
+     * Test attribute "_origin_timestamp"
      */
     public function testPropertyOriginTimestamp()
     {
     }
 
     /**
-     * Test attribute "recipientUserId"
+     * Test attribute "_recipient_user_id"
      */
     public function testPropertyRecipientUserId()
     {
     }
 
     /**
-     * Test attribute "subject"
+     * Test attribute "_subject"
      */
     public function testPropertySubject()
     {
     }
 
     /**
-     * Test attribute "content"
+     * Test attribute "_content"
      */
     public function testPropertyContent()
     {
     }
 
     /**
-     * Test attribute "customInfo"
+     * Test attribute "_custom_info"
      */
     public function testPropertyCustomInfo()
     {

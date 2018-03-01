@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * PromotionTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description The Promotion field type generically models different kinds of promotions such as referrals, coupons, free trials, etc. The value must be a nested JSON object which you populate with the appropriate information to describe the promotion. Not all sub-fields will likely apply to a given promotion. Populate only those that apply.  A promotion can be added when creating or updating an account, creating or updating an order, or on its own using the add_promotion event. The promotion object supports both monetary (e.g. 500 coupon on first order) and non-monetary (e.g. \&quot;100 in points to refer a friend\&quot;).
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,70 +78,70 @@ class PromotionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "promotionId"
+     * Test attribute "_promotion_id"
      */
     public function testPropertyPromotionId()
     {
     }
 
     /**
-     * Test attribute "status"
+     * Test attribute "_status"
      */
     public function testPropertyStatus()
     {
     }
 
     /**
-     * Test attribute "description"
+     * Test attribute "_description"
      */
     public function testPropertyDescription()
     {
     }
 
     /**
-     * Test attribute "amount"
+     * Test attribute "_amount"
      */
     public function testPropertyAmount()
     {
     }
 
     /**
-     * Test attribute "minPurchaseAmount"
+     * Test attribute "_min_purchase_amount"
      */
     public function testPropertyMinPurchaseAmount()
     {
     }
 
     /**
-     * Test attribute "referrerUserId"
+     * Test attribute "_referrer_user_id"
      */
     public function testPropertyReferrerUserId()
     {
     }
 
     /**
-     * Test attribute "failureReason"
+     * Test attribute "_failure_reason"
      */
     public function testPropertyFailureReason()
     {
     }
 
     /**
-     * Test attribute "percentageOff"
+     * Test attribute "_percentage_off"
      */
     public function testPropertyPercentageOff()
     {
     }
 
     /**
-     * Test attribute "currencyCode"
+     * Test attribute "_currency_code"
      */
     public function testPropertyCurrencyCode()
     {
     }
 
     /**
-     * Test attribute "type"
+     * Test attribute "_type"
      */
     public function testPropertyType()
     {

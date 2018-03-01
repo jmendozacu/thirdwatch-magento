@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * CustomInfoTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description Custom fields capture user behavior and differences not covered by our reserved events and fields. For example, you can pass extra info like latitude, longitude, search parameter etc.
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */

@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * ShippingAddressTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description The Address field type represents a physical address. The value must be a nested object with the appropriate address subfields. We extract many geolocation features from these values. An address is represented as a nested JSON object.
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,70 +78,70 @@ class ShippingAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "_name"
      */
     public function testPropertyName()
     {
     }
 
     /**
-     * Test attribute "phone"
+     * Test attribute "_phone"
      */
     public function testPropertyPhone()
     {
     }
 
     /**
-     * Test attribute "address1"
+     * Test attribute "_address1"
      */
     public function testPropertyAddress1()
     {
     }
 
     /**
-     * Test attribute "address2"
+     * Test attribute "_address2"
      */
     public function testPropertyAddress2()
     {
     }
 
     /**
-     * Test attribute "city"
+     * Test attribute "_city"
      */
     public function testPropertyCity()
     {
     }
 
     /**
-     * Test attribute "region"
+     * Test attribute "_region"
      */
     public function testPropertyRegion()
     {
     }
 
     /**
-     * Test attribute "country"
+     * Test attribute "_country"
      */
     public function testPropertyCountry()
     {
     }
 
     /**
-     * Test attribute "zipcode"
+     * Test attribute "_zipcode"
      */
     public function testPropertyZipcode()
     {
     }
 
     /**
-     * Test attribute "isOfficeAddress"
+     * Test attribute "_is_office_address"
      */
     public function testPropertyIsOfficeAddress()
     {
     }
 
     /**
-     * Test attribute "isHomeAddress"
+     * Test attribute "_is_home_address"
      */
     public function testPropertyIsHomeAddress()
     {

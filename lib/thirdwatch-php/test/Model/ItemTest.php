@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * ItemTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description The Item field type represents a product or service for sale in your business. The value must be a nested object with the appropriate item subfields. Generally used in the add_to_cart and remove_from_cart events.
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,147 +78,147 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "itemId"
+     * Test attribute "_item_id"
      */
     public function testPropertyItemId()
     {
     }
 
     /**
-     * Test attribute "productTitle"
+     * Test attribute "_product_title"
      */
     public function testPropertyProductTitle()
     {
     }
 
     /**
-     * Test attribute "price"
+     * Test attribute "_price"
      */
     public function testPropertyPrice()
     {
     }
 
     /**
-     * Test attribute "currencyCode"
+     * Test attribute "_currency_code"
      */
     public function testPropertyCurrencyCode()
     {
     }
 
     /**
-     * Test attribute "upc"
+     * Test attribute "_upc"
      */
     public function testPropertyUpc()
     {
     }
 
     /**
-     * Test attribute "sku"
+     * Test attribute "_sku"
      */
     public function testPropertySku()
     {
     }
 
     /**
-     * Test attribute "isbn"
+     * Test attribute "_isbn"
      */
     public function testPropertyIsbn()
     {
     }
 
     /**
-     * Test attribute "brand"
+     * Test attribute "_brand"
      */
     public function testPropertyBrand()
     {
     }
 
     /**
-     * Test attribute "manufacturer"
+     * Test attribute "_manufacturer"
      */
     public function testPropertyManufacturer()
     {
     }
 
     /**
-     * Test attribute "category"
+     * Test attribute "_category"
      */
     public function testPropertyCategory()
     {
     }
 
     /**
-     * Test attribute "tags"
+     * Test attribute "_tags"
      */
     public function testPropertyTags()
     {
     }
 
     /**
-     * Test attribute "color"
+     * Test attribute "_color"
      */
     public function testPropertyColor()
     {
     }
 
     /**
-     * Test attribute "quantity"
+     * Test attribute "_quantity"
      */
     public function testPropertyQuantity()
     {
     }
 
     /**
-     * Test attribute "isOnSale"
+     * Test attribute "_is_on_sale"
      */
     public function testPropertyIsOnSale()
     {
     }
 
     /**
-     * Test attribute "maxQuantity"
+     * Test attribute "_max_quantity"
      */
     public function testPropertyMaxQuantity()
     {
     }
 
     /**
-     * Test attribute "discountPrice"
+     * Test attribute "_discount_price"
      */
     public function testPropertyDiscountPrice()
     {
     }
 
     /**
-     * Test attribute "productWeight"
+     * Test attribute "_product_weight"
      */
     public function testPropertyProductWeight()
     {
     }
 
     /**
-     * Test attribute "country"
+     * Test attribute "_country"
      */
     public function testPropertyCountry()
     {
     }
 
     /**
-     * Test attribute "descriptionShort"
+     * Test attribute "_description_short"
      */
     public function testPropertyDescriptionShort()
     {
     }
 
     /**
-     * Test attribute "description"
+     * Test attribute "_description"
      */
     public function testPropertyDescription()
     {
     }
 
     /**
-     * Test attribute "seller"
+     * Test attribute "_seller"
      */
     public function testPropertySeller()
     {

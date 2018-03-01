@@ -4,7 +4,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,18 +26,18 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
-use \ai.thirdwatch\Configuration;
-use \ai.thirdwatch\ApiClient;
-use \ai.thirdwatch\ApiException;
-use \ai.thirdwatch\ObjectSerializer;
+use \ai\thirdwatch\Configuration;
+use \ai\thirdwatch\ApiClient;
+use \ai\thirdwatch\ApiException;
+use \ai\thirdwatch\ObjectSerializer;
 
 /**
  * SubmitReviewApiTest Class Doc Comment
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */

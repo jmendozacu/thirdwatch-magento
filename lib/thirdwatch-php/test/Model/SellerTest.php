@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * SellerTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description The Seller field type represents information about the seller. The value must be a nested object with the appropriate item subfields for the given seller. Generally usedwith the order, item or transaction events.
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,49 +78,49 @@ class SellerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "sellerId"
+     * Test attribute "_seller_id"
      */
     public function testPropertySellerId()
     {
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "_name"
      */
     public function testPropertyName()
     {
     }
 
     /**
-     * Test attribute "email"
+     * Test attribute "_email"
      */
     public function testPropertyEmail()
     {
     }
 
     /**
-     * Test attribute "phone"
+     * Test attribute "_phone"
      */
     public function testPropertyPhone()
     {
     }
 
     /**
-     * Test attribute "createdDate"
+     * Test attribute "_created_date"
      */
     public function testPropertyCreatedDate()
     {
     }
 
     /**
-     * Test attribute "lastUpdatedDate"
+     * Test attribute "_last_updated_date"
      */
     public function testPropertyLastUpdatedDate()
     {
     }
 
     /**
-     * Test attribute "onboardingIpAddress"
+     * Test attribute "_onboarding_ip_address"
      */
     public function testPropertyOnboardingIpAddress()
     {

@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * LinkSessionToUserTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description LinkSessionToUser
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,21 +78,21 @@ class LinkSessionToUserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "userId"
+     * Test attribute "_user_id"
      */
     public function testPropertyUserId()
     {
     }
 
     /**
-     * Test attribute "sessionId"
+     * Test attribute "_session_id"
      */
     public function testPropertySessionId()
     {
     }
 
     /**
-     * Test attribute "customInfo"
+     * Test attribute "_custom_info"
      */
     public function testPropertyCustomInfo()
     {

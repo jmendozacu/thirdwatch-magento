@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * CreateAccountTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description CreateAccount
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,175 +78,175 @@ class CreateAccountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "userId"
+     * Test attribute "_user_id"
      */
     public function testPropertyUserId()
     {
     }
 
     /**
-     * Test attribute "sessionId"
+     * Test attribute "_session_id"
      */
     public function testPropertySessionId()
     {
     }
 
     /**
-     * Test attribute "deviceIp"
+     * Test attribute "_device_ip"
      */
     public function testPropertyDeviceIp()
     {
     }
 
     /**
-     * Test attribute "originTimestamp"
+     * Test attribute "_origin_timestamp"
      */
     public function testPropertyOriginTimestamp()
     {
     }
 
     /**
-     * Test attribute "userEmail"
+     * Test attribute "_user_email"
      */
     public function testPropertyUserEmail()
     {
     }
 
     /**
-     * Test attribute "firstName"
+     * Test attribute "_first_name"
      */
     public function testPropertyFirstName()
     {
     }
 
     /**
-     * Test attribute "lastName"
+     * Test attribute "_last_name"
      */
     public function testPropertyLastName()
     {
     }
 
     /**
-     * Test attribute "phone"
+     * Test attribute "_phone"
      */
     public function testPropertyPhone()
     {
     }
 
     /**
-     * Test attribute "age"
+     * Test attribute "_age"
      */
     public function testPropertyAge()
     {
     }
 
     /**
-     * Test attribute "gender"
+     * Test attribute "_gender"
      */
     public function testPropertyGender()
     {
     }
 
     /**
-     * Test attribute "referralCode"
+     * Test attribute "_referral_code"
      */
     public function testPropertyReferralCode()
     {
     }
 
     /**
-     * Test attribute "referrerUserId"
+     * Test attribute "_referrer_user_id"
      */
     public function testPropertyReferrerUserId()
     {
     }
 
     /**
-     * Test attribute "billingAddress"
+     * Test attribute "_billing_address"
      */
     public function testPropertyBillingAddress()
     {
     }
 
     /**
-     * Test attribute "shippingAddress"
+     * Test attribute "_shipping_address"
      */
     public function testPropertyShippingAddress()
     {
     }
 
     /**
-     * Test attribute "paymentMethods"
+     * Test attribute "_payment_methods"
      */
     public function testPropertyPaymentMethods()
     {
     }
 
     /**
-     * Test attribute "promotions"
+     * Test attribute "_promotions"
      */
     public function testPropertyPromotions()
     {
     }
 
     /**
-     * Test attribute "socialSignOnType"
+     * Test attribute "_social_sign_on_type"
      */
     public function testPropertySocialSignOnType()
     {
     }
 
     /**
-     * Test attribute "emailConfirmedStatus"
+     * Test attribute "_email_confirmed_status"
      */
     public function testPropertyEmailConfirmedStatus()
     {
     }
 
     /**
-     * Test attribute "phoneConfirmedStatus"
+     * Test attribute "_phone_confirmed_status"
      */
     public function testPropertyPhoneConfirmedStatus()
     {
     }
 
     /**
-     * Test attribute "isNewsletterSubscribed"
+     * Test attribute "_is_newsletter_subscribed"
      */
     public function testPropertyIsNewsletterSubscribed()
     {
     }
 
     /**
-     * Test attribute "accountStatus"
+     * Test attribute "_account_status"
      */
     public function testPropertyAccountStatus()
     {
     }
 
     /**
-     * Test attribute "facebookId"
+     * Test attribute "_facebook_id"
      */
     public function testPropertyFacebookId()
     {
     }
 
     /**
-     * Test attribute "googleId"
+     * Test attribute "_google_id"
      */
     public function testPropertyGoogleId()
     {
     }
 
     /**
-     * Test attribute "twitterId"
+     * Test attribute "_twitter_id"
      */
     public function testPropertyTwitterId()
     {
     }
 
     /**
-     * Test attribute "customInfo"
+     * Test attribute "_custom_info"
      */
     public function testPropertyCustomInfo()
     {

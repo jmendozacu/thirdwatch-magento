@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * TagTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description Tag
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,49 +78,49 @@ class TagTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "userId"
+     * Test attribute "_user_id"
      */
     public function testPropertyUserId()
     {
     }
 
     /**
-     * Test attribute "isBad"
+     * Test attribute "_is_bad"
      */
     public function testPropertyIsBad()
     {
     }
 
     /**
-     * Test attribute "abuseType"
+     * Test attribute "_abuse_type"
      */
     public function testPropertyAbuseType()
     {
     }
 
     /**
-     * Test attribute "description"
+     * Test attribute "_description"
      */
     public function testPropertyDescription()
     {
     }
 
     /**
-     * Test attribute "source"
+     * Test attribute "_source"
      */
     public function testPropertySource()
     {
     }
 
     /**
-     * Test attribute "analyst"
+     * Test attribute "_analyst"
      */
     public function testPropertyAnalyst()
     {
     }
 
     /**
-     * Test attribute "customInfo"
+     * Test attribute "_custom_info"
      */
     public function testPropertyCustomInfo()
     {

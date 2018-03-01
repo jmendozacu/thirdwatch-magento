@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  ai.thirdwatch
+ * @package  ai\thirdwatch
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace ai.thirdwatch;
+namespace ai\thirdwatch;
 
 /**
  * UpdateOrderTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace ai.thirdwatch;
  * @category    Class */
 // * @description UpdateOrder
 /**
- * @package     ai.thirdwatch
+ * @package     ai\thirdwatch
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -78,147 +78,147 @@ class UpdateOrderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test attribute "userId"
+     * Test attribute "_user_id"
      */
     public function testPropertyUserId()
     {
     }
 
     /**
-     * Test attribute "sessionId"
+     * Test attribute "_session_id"
      */
     public function testPropertySessionId()
     {
     }
 
     /**
-     * Test attribute "orderId"
+     * Test attribute "_order_id"
      */
     public function testPropertyOrderId()
     {
     }
 
     /**
-     * Test attribute "deviceIp"
+     * Test attribute "_device_ip"
      */
     public function testPropertyDeviceIp()
     {
     }
 
     /**
-     * Test attribute "originTimestamp"
+     * Test attribute "_origin_timestamp"
      */
     public function testPropertyOriginTimestamp()
     {
     }
 
     /**
-     * Test attribute "userEmail"
+     * Test attribute "_user_email"
      */
     public function testPropertyUserEmail()
     {
     }
 
     /**
-     * Test attribute "amount"
+     * Test attribute "_amount"
      */
     public function testPropertyAmount()
     {
     }
 
     /**
-     * Test attribute "currencyCode"
+     * Test attribute "_currency_code"
      */
     public function testPropertyCurrencyCode()
     {
     }
 
     /**
-     * Test attribute "hasExpeditedShipping"
+     * Test attribute "_has_expedited_shipping"
      */
     public function testPropertyHasExpeditedShipping()
     {
     }
 
     /**
-     * Test attribute "shippingMethod"
+     * Test attribute "_shipping_method"
      */
     public function testPropertyShippingMethod()
     {
     }
 
     /**
-     * Test attribute "orderReferrer"
+     * Test attribute "_order_referrer"
      */
     public function testPropertyOrderReferrer()
     {
     }
 
     /**
-     * Test attribute "isPrePaid"
+     * Test attribute "_is_pre_paid"
      */
     public function testPropertyIsPrePaid()
     {
     }
 
     /**
-     * Test attribute "isGift"
+     * Test attribute "_is_gift"
      */
     public function testPropertyIsGift()
     {
     }
 
     /**
-     * Test attribute "isReturn"
+     * Test attribute "_is_return"
      */
     public function testPropertyIsReturn()
     {
     }
 
     /**
-     * Test attribute "isFirstTimeBuyer"
+     * Test attribute "_is_first_time_buyer"
      */
     public function testPropertyIsFirstTimeBuyer()
     {
     }
 
     /**
-     * Test attribute "billingAddress"
+     * Test attribute "_billing_address"
      */
     public function testPropertyBillingAddress()
     {
     }
 
     /**
-     * Test attribute "shippingAddress"
+     * Test attribute "_shipping_address"
      */
     public function testPropertyShippingAddress()
     {
     }
 
     /**
-     * Test attribute "paymentMethods"
+     * Test attribute "_payment_methods"
      */
     public function testPropertyPaymentMethods()
     {
     }
 
     /**
-     * Test attribute "promotions"
+     * Test attribute "_promotions"
      */
     public function testPropertyPromotions()
     {
     }
 
     /**
-     * Test attribute "items"
+     * Test attribute "_items"
      */
     public function testPropertyItems()
     {
     }
 
     /**
-     * Test attribute "customInfo"
+     * Test attribute "_custom_info"
      */
     public function testPropertyCustomInfo()
     {
