@@ -63,6 +63,14 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         return $order->getId() . '_' . $order->getIncrementId();
     }
 
+    public function getIncrementOrderId($order)
+    {
+        if (!$order) {
+            return null;
+        }
+        return $order->getIncrementId();
+    }
+
     /**
      * This function is called whenever an item is added to the cart or removed from the cart.
      */
@@ -326,7 +334,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $orderData['_session_id'] = (string) $SID;
             $orderData['_device_ip'] = (string) $remoteAddress;
             $orderData['_origin_timestamp'] = (string) Varien_Date::toTimestamp($model->getCreatedAt()) . '000';
-            $orderData['_order_id'] = (string) $this->getOrderOrigId($model);
+            $orderData['_order_id'] = (string) $this->getIncrementOrderId($model);
             $orderData['_user_email'] = (string) $model->getCustomerEmail();
             $orderData['_amount'] = (string) $model->getGrandTotal();
             $orderData['_currency_code'] = (string) $model->getOrderCurrencyCode();
@@ -373,7 +381,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         try{
             $orderData['_user_id'] = (string) $customerData->getId();
             $orderData['_session_id'] = (string) $SID;
-            $orderData['_order_id'] = (string) $this->getOrderOrigId($model);
+            $orderData['_order_id'] = (string) $this->getIncrementOrderId($model);
             $orderData['_order_status'] = (string) $model->getState();;
             $orderData['_reason'] = '';
             $orderData['_shipping_cost'] = '';
@@ -429,7 +437,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $orderData['_session_id'] = (string)$SID;
             $orderData['_device_ip'] = (string)$remoteAddress;
             $orderData['_origin_timestamp'] = (string)Varien_Date::toTimestamp($model->getCreatedAt()) . '000';
-            $orderData['_order_id'] = (string)$this->getOrderOrigId($model);
+            $orderData['_order_id'] = (string)$this->getIncrementOrderId($model);
             $orderData['_user_email'] = (string)$model->getCustomerEmail();
             $orderData['_amount'] = (string)$model->getGrandTotal();
             $orderData['_currency_code'] = (string)$model->getOrderCurrencyCode();
