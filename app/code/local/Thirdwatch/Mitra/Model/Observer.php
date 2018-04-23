@@ -86,7 +86,7 @@ class Thirdwatch_Mitra_Model_Observer{
         $client->setMethod(Varien_Http_Client::POST);
         $client->setHeaders('Content-type','application/json');
 
-        $order_id = $order->getId() . '_' . $order->getIncrementId();
+        $order_id = $order->getIncrementId();
 
         $jsonRequest = array(
             'secret'=>$secret,

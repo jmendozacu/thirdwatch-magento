@@ -71,6 +71,16 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         return $order->getIncrementId();
     }
 
+    public function loadOrderByIncId($full_orig_id)
+    {
+        if (!$full_orig_id) {
+            return null;
+        }
+
+        return Mage::getModel('sales/order')->loadByIncrementId($full_orig_id);
+    }
+
+
     /**
      * This function is called whenever an item is added to the cart or removed from the cart.
      */
@@ -274,7 +284,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 
     private function getPaymentDetails($model)
     {
-        $order = $this->loadOrderByOrigId($this->getOrderOrigId($model));
+        $order = $this->loadOrderByIncId($this->getIncrementOrderId($model));
         $paymentData = array();
 
         try
@@ -288,29 +298,28 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         catch (Exception $e) {
             Mage::helper('mitra/log')->log($e->getMessage());
         }
-
         $paymentJson = new \ai\thirdwatch\Model\PaymentMethod($paymentData);
         return $paymentJson;
     }
 
-    private function loadOrderByOrigId($full_orig_id)
-    {
-        if (!$full_orig_id) {
-            return null;
-        }
-
-        $magento_ids = explode("_", $full_orig_id);
-        $order_id = $magento_ids[0];
-        $increment_id = $magento_ids[1];
-
-        if ($order_id && $increment_id) {
-            return Mage::getModel('sales/order')->getCollection()
-                ->addFieldToFilter('entity_id', $order_id)
-                ->addFieldToFilter('increment_id', $increment_id)
-                ->getFirstItem();
-        }
-        return Mage::getModel('sales/order')->load($order_id);
-    }
+//    private function loadOrderByOrigId($full_orig_id)
+//    {
+//        if (!$full_orig_id) {
+//            return null;
+//        }
+//
+//        $magento_ids = explode("_", $full_orig_id);
+//        $order_id = $magento_ids[0];
+//        $increment_id = $magento_ids[1];
+//
+//        if ($order_id && $increment_id) {
+//            return Mage::getModel('sales/order')->getCollection()
+//                ->addFieldToFilter('entity_id', $order_id)
+//                ->addFieldToFilter('increment_id', $increment_id)
+//                ->getFirstItem();
+//        }
+//        return Mage::getModel('sales/order')->load($order_id);
+//    }
 
     private function checkIsPrepaid($order){
         if ($order->getBaseTotalDue() > 0){
@@ -326,7 +335,6 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
         $customerData = $this->_getCustomerObject($model->getCustomerId());
         $session = Mage::getSingleton('core/session');
         $SID=$session->getEncryptedSessionId();
-
         try{
             $remoteAddress = Mage::helper('core/http')->getRemoteAddr();
 
@@ -340,7 +348,13 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             $orderData['_currency_code'] = (string) $model->getOrderCurrencyCode();
             $orderData['_is_pre_paid'] = $this->checkIsPrepaid($model);
             $orderData['_billing_address'] = Mage::helper('mitra/common')->getBillingAddress($model->getBillingAddress());
-            $orderData['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($model->getShippingAddress());
+            if ($model->getShippingAddress()){
+                $orderData['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($model->getShippingAddress());
+            }
+            else {
+                $orderData['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($model->getBillingAddress());
+            }
+
             $orderData['_items'] = $this->getLineItems($model);
             $orderData['_payment_methods'] = array($this->getPaymentDetails($model));
         }
@@ -466,7 +480,6 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
 
         try {
             $orderData = $this->getTransaction($model, $txnType);
-            Mage::helper('mitra/log')->log($orderData);
             $api_instance = new \ai\thirdwatch\Api\TransactionApi();
             $body = new \ai\thirdwatch\Model\Transaction($orderData);
         }
