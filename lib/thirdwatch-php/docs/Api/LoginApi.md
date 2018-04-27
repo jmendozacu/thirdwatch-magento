@@ -18,15 +18,20 @@ Use login to record when a user attempts to log in.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\LoginApi();
+$apiInstance = new ai\thirdwatch\Api\LoginApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\Login(); // \ai\thirdwatch\Model\Login | Pass login status to thirdwatch. Only `_userID` is required field. But this should contain login info.
 
 try {
-    $result = $api_instance->login($json);
+    $result = $apiInstance->login($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling LoginApi->login: ', $e->getMessage(), PHP_EOL;

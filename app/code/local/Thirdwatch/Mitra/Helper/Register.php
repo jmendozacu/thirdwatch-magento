@@ -10,7 +10,7 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
     {
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerInfo = array();
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
@@ -42,7 +42,7 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
                 $customerInfo['_account_status'] = '_inactive';
             }
 
-            $api_instance = new \ai\thirdwatch\Api\CreateAccountApi();
+            $api_instance = new \ai\thirdwatch\Api\CreateAccountApi(new GuzzleHttp\Client(), $config);
             $body = new \ai\thirdwatch\Model\CreateAccount($customerInfo);
         }
         catch (Exception $e){
@@ -60,7 +60,7 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
     {
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerInfo = array();
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
@@ -95,7 +95,7 @@ class Thirdwatch_Mitra_Helper_Register extends Mage_Core_Helper_Abstract
             $customerInfo['_billing_address'] = Mage::helper('mitra/common')->getBillingAddress($customerData->getPrimaryBillingAddress());
             $customerInfo['_shipping_address'] = Mage::helper('mitra/common')->getShippingAddress($customerData->getPrimaryShippingAddress());
 
-            $api_instance = new \ai\thirdwatch\Api\UpdateAccountApi();
+            $api_instance = new \ai\thirdwatch\Api\UpdateAccountApi(new GuzzleHttp\Client(), $config);
             $body = new \ai\thirdwatch\Model\UpdateAccount($customerInfo);
         }
         catch (Exception $e){

@@ -18,15 +18,20 @@ Use send_message to record when a user sends a message to other i.e. seller, sup
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\SendMessageApi();
+$apiInstance = new ai\thirdwatch\Api\SendMessageApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\SendMessage(); // \ai\thirdwatch\Model\SendMessage | Pass message to thirdwatch. Only `_userID` is required field. But this should contain message info.
 
 try {
-    $result = $api_instance->sendMessage($json);
+    $result = $apiInstance->sendMessage($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SendMessageApi->sendMessage: ', $e->getMessage(), PHP_EOL;

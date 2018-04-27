@@ -20,15 +20,20 @@ For example, order_status can be used to indicate that an order has been held fo
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\OrderStatusApi();
+$apiInstance = new ai\thirdwatch\Api\OrderStatusApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\OrderStatus(); // \ai\thirdwatch\Model\OrderStatus | Pass order status to thirdwatch. Only `_userID` is required field. But this should contain order info.
 
 try {
-    $result = $api_instance->orderStatus($json);
+    $result = $apiInstance->orderStatus($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrderStatusApi->orderStatus: ', $e->getMessage(), PHP_EOL;

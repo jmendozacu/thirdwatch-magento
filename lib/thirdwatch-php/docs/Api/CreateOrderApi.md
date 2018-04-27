@@ -18,15 +18,20 @@ Submit a new or existing order to Thirdwatch for review. This API should contain
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\CreateOrderApi();
+$apiInstance = new ai\thirdwatch\Api\CreateOrderApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $body = new \ai\thirdwatch\Model\CreateOrder(); // \ai\thirdwatch\Model\CreateOrder | An order to submit for review. Only `_userID` is required field. But this should contain order info.
 
 try {
-    $result = $api_instance->createOrder($body);
+    $result = $apiInstance->createOrder($body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CreateOrderApi->createOrder: ', $e->getMessage(), PHP_EOL;

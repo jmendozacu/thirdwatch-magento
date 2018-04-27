@@ -18,15 +18,20 @@ Use remove_from_cart when a user removes an item from their shopping cart or lis
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\RemoveFromCartApi();
+$apiInstance = new ai\thirdwatch\Api\RemoveFromCartApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\RemoveFromCart(); // \ai\thirdwatch\Model\RemoveFromCart | Pass removed item info to thirdwatch. Only `_userID` is required field. But this should contain item info.
 
 try {
-    $result = $api_instance->removeFromCart($json);
+    $result = $apiInstance->removeFromCart($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RemoveFromCartApi->removeFromCart: ', $e->getMessage(), PHP_EOL;

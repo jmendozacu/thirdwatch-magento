@@ -20,15 +20,20 @@ If you have a feature like \"Report Item\" or \"Flag this Item\", send that even
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\ReportItemApi();
+$apiInstance = new ai\thirdwatch\Api\ReportItemApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\ReportItem(); // \ai\thirdwatch\Model\ReportItem | Pass report item info to thirdwatch. Only `_userID` is required field. But this should contain item id.
 
 try {
-    $result = $api_instance->reportItem($json);
+    $result = $apiInstance->reportItem($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ReportItemApi->reportItem: ', $e->getMessage(), PHP_EOL;

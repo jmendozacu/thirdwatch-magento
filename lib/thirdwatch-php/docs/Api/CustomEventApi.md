@@ -20,15 +20,20 @@ Custom events and fields capture user behavior and differences not covered by ou
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\CustomEventApi();
+$apiInstance = new ai\thirdwatch\Api\CustomEventApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\Custom(); // \ai\thirdwatch\Model\Custom | Pass order status to thirdwatch. Only `_userID` is required field. But this should contain custom info.
 
 try {
-    $result = $api_instance->customEvent($json);
+    $result = $apiInstance->customEvent($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomEventApi->customEvent: ', $e->getMessage(), PHP_EOL;

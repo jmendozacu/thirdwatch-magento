@@ -10,7 +10,7 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
     {
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
         $customerInfo = array();
@@ -28,7 +28,7 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
             $customerInfo['_origin_timestamp'] = (string) $currentTimestamp . '000';
             $customerInfo['_login_status'] = "_success";
 
-            $api_instance = new \ai\thirdwatch\Api\LoginApi();
+            $api_instance = new \ai\thirdwatch\Api\LoginApi(new GuzzleHttp\Client(), $config);
             $body = new \ai\thirdwatch\Model\Login($customerInfo);
         }
         catch (Exception $e){
@@ -45,7 +45,7 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
     public function postLogout($customer){
         $helper = Mage::helper('mitra');
         $thirdwatchKey = $helper->getKey();
-        \ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
+        $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', $thirdwatchKey);
 
         $customerData = Mage::getModel('customer/customer')->load($customer->getId());
         $customerInfo = array();
@@ -62,7 +62,7 @@ class Thirdwatch_Mitra_Helper_Login extends Mage_Core_Helper_Abstract
             $customerInfo['_origin_timestamp'] = (string) $currentTimestamp . '000';
             $customerInfo['_login_status'] = "_success";
 
-            $api_instance = new \ai\thirdwatch\Api\LogoutApi();
+            $api_instance = new \ai\thirdwatch\Api\LogoutApi(new GuzzleHttp\Client(), $config);
             $body = new \ai\thirdwatch\Model\Logout($customerInfo);
         }
         catch (Exception $e){

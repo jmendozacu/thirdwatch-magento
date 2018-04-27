@@ -18,15 +18,20 @@ Use submit_review when a user-submitted review of a product or seller.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: api_key
-ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
+$config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKey('X-THIRDWATCH-API-KEY', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
+// $config = ai\thirdwatch\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-THIRDWATCH-API-KEY', 'Bearer');
 
-$api_instance = new ai\thirdwatch\Api\SubmitReviewApi();
+$apiInstance = new ai\thirdwatch\Api\SubmitReviewApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
 $json = new \ai\thirdwatch\Model\SubmitReview(); // \ai\thirdwatch\Model\SubmitReview | Pass review to thirdwatch. Only `_userID` is required field. But this should contain review info.
 
 try {
-    $result = $api_instance->submitReview($json);
+    $result = $apiInstance->submitReview($json);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SubmitReviewApi->submitReview: ', $e->getMessage(), PHP_EOL;
