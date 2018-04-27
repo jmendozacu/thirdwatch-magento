@@ -51,7 +51,7 @@ class Thirdwatch_Mitra_Model_Observer{
             Mage::throwException('Testing response postback failed');
         }
 
-        $client = new Varien_Http_Client('https://staging.thirdwatch.co/neo/v1/addpostbackurl/');
+        $client = new Varien_Http_Client('https://api.thirdwatch.ai/neo/v1/addpostbackurl/');
         $client->setMethod(Varien_Http_Client::POST);
         $client->setHeaders('Content-type','application/json');
         $jsonRequest = array(
@@ -82,7 +82,7 @@ class Thirdwatch_Mitra_Model_Observer{
         $helper = Mage::helper('mitra');
         $secret = $helper->getKey();
 
-        $client = new Varien_Http_Client('https://staging.thirdwatch.co/neo/v1/clientaction');
+        $client = new Varien_Http_Client('https://api.thirdwatch.ai/neo/v1/clientaction');
         $client->setMethod(Varien_Http_Client::POST);
         $client->setHeaders('Content-type','application/json');
 
