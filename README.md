@@ -4,7 +4,7 @@ This extention will send the orders placed in magento store to thirdwatch for va
 
 Facts
 -----
-- version: 1.0.0
+- version: 2.0.0
 
 Description
 -----------

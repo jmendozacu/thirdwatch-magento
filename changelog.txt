@@ -1,0 +1,5 @@
+27 April, 2018:
+
+1. Major change release with version 2.0.0
+2. Added async request to thirdwatch api's
+3. Additional library added in lib/thirdwatch-php/vendor
