@@ -46,7 +46,20 @@
                     </thirdwatch_mitra>
                 </observers>
             </admin_system_config_changed_section_thirdwatch>
+        </events>
+    </global>
 
+    <frontend>
+        <routers>
+            <mitra>
+                <use>standard</use>
+                <args>
+                    <module>Thirdwatch_Mitra</module>
+                    <frontName>mitra</frontName>
+                </args>
+            </mitra>
+        </routers>
+        <events>
             <sales_order_payment_void>
                 <observers>
                     <thirdwatch_mitra>
@@ -127,26 +140,16 @@
                 </observers>
             </customer_save_after>
 
-            <!--<checkout_cart_product_add_after>-->
-                <!--<observers>-->
-                    <!--<thirdwatch_mitra>-->
-                        <!--<type>singleton</type>-->
-                        <!--<class>mitra/observer</class>-->
-                        <!--<method>cartAdd</method>-->
-                    <!--</thirdwatch_mitra>-->
-                <!--</observers>-->
-            <!--</checkout_cart_product_add_after>-->
-
-
             <checkout_cart_add_product_complete>
                 <observers>
-                <thirdwatch_mitra>
-                <type>singleton</type>
-                <class>mitra/observer</class>
-                <method>cartAdd</method>
-                </thirdwatch_mitra>
+                    <thirdwatch_mitra>
+                        <type>singleton</type>
+                        <class>mitra/observer</class>
+                        <method>cartAdd</method>
+                    </thirdwatch_mitra>
                 </observers>
             </checkout_cart_add_product_complete>
+
             <checkout_cart_product_update_after>
                 <observers>
                     <thirdwatch_mitra>
@@ -167,21 +170,20 @@
                 </observers>
             </sales_quote_remove_item>
         </events>
-    </global>
-
-    <frontend>
-        <routers>
-            <mitra>
-                <use>standard</use>
-                <args>
-                    <module>Thirdwatch_Mitra</module>
-                    <frontName>mitra</frontName>
-                </args>
-            </mitra>
-        </routers>
     </frontend>
 
     <adminhtml>
+        <events>
+            <sales_order_save_after>
+                <observers>
+                    <thirdwatch_mitra>
+                        <type>singleton</type>
+                        <class>mitra/observer</class>
+                        <method>adminStatusUpdate</method>
+                    </thirdwatch_mitra>
+                </observers>
+            </sales_order_save_after>
+        </events>
         <acl>
             <resources>
                 <all>

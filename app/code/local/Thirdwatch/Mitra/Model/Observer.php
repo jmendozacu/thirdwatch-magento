@@ -156,6 +156,24 @@ class Thirdwatch_Mitra_Model_Observer{
         }
     }
 
+    public function adminStatusUpdate($evt)
+    {
+        $order = $evt->getOrder();
+        if (!$order) {
+            return;
+        }
+        try {
+            if (!Mage::registry("thirdwatch-order")) {
+                Mage::register("thirdwatch-order", $order);
+            }
+            Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_UPDATE);
+            Mage::unregister("thirdwatch-order");
+        } catch (Exception $e) {
+            // There is no need to do anything here.  The exception has already been handled and a retry scheduled.
+            // We catch this exception so that the order is still saved in Magento.
+        }
+    }
+
     /**
      * this observer handles the event sales_order_save_after
      * this function will be called whenever the order save will be called in the system. It handles the creation and updatation of the

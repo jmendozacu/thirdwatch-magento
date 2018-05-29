@@ -49,7 +49,7 @@ class Thirdwatch_Mitra_ActionController extends Mage_Core_Controller_Front_Actio
                         $order->save();
                     }
                     else{
-                        $order->setState(Mage_Sales_Model_Order::STATE_HOLDED, 'thirdwatch_declined');
+                        $order->setState(Mage_Sales_Model_Order::STATE_CANCELED, 'canceled');
                         if (!empty($comment) and strtolower($comment) != "none"){
                             $order->addStatusHistoryComment($comment);
                         }

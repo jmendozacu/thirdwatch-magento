@@ -6,24 +6,10 @@ $installer->startSetup();
 
 $helper = Mage::helper('mitra/order_status');
 
-// create new approved and declined statuses
-
-Mage::getModel('sales/order_status')
-    ->setStatus($helper->getThirdwatchDeclinedStatusCode())
-    ->setLabel($helper->getThirdwatchDeclinedStatusLabel())
-    ->assignState(Mage_Sales_Model_Order::STATE_HOLDED)
-    ->save();
-
 Mage::getModel('sales/order_status')
     ->setStatus($helper->getThirdwatchDeclinedStatusCode())
     ->setLabel($helper->getThirdwatchDeclinedStatusLabel())
     ->assignState(Mage_Sales_Model_Order::STATE_CANCELED)
-    ->save();
-
-Mage::getModel('sales/order_status')
-    ->setStatus($helper->getThirdwatchApprovedStatusCode())
-    ->setLabel($helper->getThirdwatchApprovedStatusLabel())
-    ->assignState(Mage_Sales_Model_Order::STATE_HOLDED)
     ->save();
 
 Mage::getModel('sales/order_status')

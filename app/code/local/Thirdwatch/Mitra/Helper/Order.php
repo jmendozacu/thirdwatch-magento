@@ -11,6 +11,7 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
     const ACTION_CANCEL = 'cancel';
     const ACTION_REFUND = 'refund';
     const ACTION_ONLY_TRANSACTION = 'onlyTransaction';
+    const ACTION_FAILED_TRANSACTION = "review";
 
     private $_customer = array();
     protected $requestData = array();
@@ -51,6 +52,11 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             case self::ACTION_UPDATE:
                 Mage::helper('mitra/log')->log("ACTION_UPDATE");
                 $this->updateOrderStatus($order);
+                break;
+            case self:: ACTION_FAILED_TRANSACTION:
+                Mage::helper('mitra/log')->log("ACTION_FAILED_TRANSACTION");
+                $this->createOrder($order);
+                $this->createTransaction($order, '_review');
                 break;
         }
     }
@@ -466,7 +472,14 @@ class Thirdwatch_Mitra_Helper_Order extends Mage_Core_Helper_Abstract
             }
 
             $orderData['_transaction_type'] = $txnType;
-            $orderData['_transaction_status'] = '_success';
+
+            if ($txnType == "_review"){
+                $orderData['_transaction_status'] = '_failed';
+            }
+            else {
+                $orderData['_transaction_status'] = '_success';
+            }
+
         } catch (Exception $e) {
             Mage::helper('mitra/log')->log($e->getMessage());
         }
