@@ -277,12 +277,14 @@ class Thirdwatch_Mitra_Model_Observer{
                                 Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
                             }
 
-                        } else if ($newState == "processing") {
-                            if ($order->getBaseTotalDue() < 1) {
-                                Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
-                            }
-
-                        } else if ($newState == "closed" and $oldState == "complete") {
+                        }
+//                        else if ($newState == "processing") {
+//                            if ($order->getBaseTotalDue() < 1) {
+//                                Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_TRANSACTION);
+//                            }
+//
+//                        }
+                        else if ($newState == "closed" and $oldState == "complete") {
                             Mage::helper('mitra/order')->postOrder($order, Thirdwatch_Mitra_Helper_Order::ACTION_UPDATE);
 
                         } else if ($newState == "complete" and $oldState == "processing") {
